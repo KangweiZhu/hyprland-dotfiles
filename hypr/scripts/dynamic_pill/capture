@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import subprocess
+import threading
+import json
+import pickle
+import time
+from pathlib import Path
+
+OUT_PATH = Path.home() / ".config/hypr/scripts/dynamic_pill/dynamic_out.txt"
+NOTIF_PATH = Path.home() / ".config/hypr/scripts/dynamic_pill/latest_notif.pkl"
+
+PAUSE_MEDIA = False
+PREV_NOTIF = None
+
+def write_output(data):
+    OUT_PATH.write_text(json.dumps(data))
+
+def notif_watcher():
+    global PAUSE_MEDIA, PREV_NOTIF
+    while True:
+        try:
+            notif = pickle.loads(NOTIF_PATH.read_bytes())
+        except Exception:
+            notif = PREV_NOTIF
+
+        if notif != PREV_NOTIF:
+            write_output({"class": "none", "text": ""})
+            urgency = notif.get("urgency", "").lower() if notif.get("urgency") else "Normal"
+            write_output({
+                "class": urgency,
+                "text": f'[{notif.get("app_name", "")}]   {notif.get("summary", "")}, {notif.get("body", "")}',
+                "tooltip": "notification"
+            })
+            PAUSE_MEDIA = True
+            time.sleep(3)
+            write_output({"class": "none", "text": ""})
+            PAUSE_MEDIA = False
+            PREV_NOTIF = notif
+
+        time.sleep(0.5)
+
+def media_pipe():
+    cmd = ["waybar-mpris", "--position", "--autofocus"]
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    write_output({"class": "mpris-none", "text": ""})
+
+    for raw_line in iter(process.stdout.readline, b""):
+        if PAUSE_MEDIA:
+            continue
+        try:
+            line = raw_line.decode("utf-8")
+            dat = json.loads(line)
+            text = dat.get("text", "").replace("", "").strip()
+            dat["text"] = text
+            write_output(dat if text else {"class": "none", "text": ""})
+        except Exception:
+            continue
+
+if __name__ == "__main__":
+    threading.Thread(target=notif_watcher, daemon=True).start()
+    media_pipe()

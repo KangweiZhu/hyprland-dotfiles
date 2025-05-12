@@ -1,0 +1,160 @@
+@keyframes gradient {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 30%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes gradient_f {
+    0%   { background-position: 0%   200%; }
+    50%  { background-position: 200% 0%; }
+    100% { background-position: 400% 200%; }
+}
+
+@keyframes gradient_f_nh {
+    0%   { background-position: 0% 200%; }
+    100% { background-position: 200% 200%; }
+}
+
+@keyframes blink {
+    to { background: #f9e2af; color: #96804e; }
+}
+
+/* #mpris.paused {
+    background: transparent;
+    color: #b4befe;
+    border-radius: 100%;
+    padding: 0;
+} */
+
+* {
+    border: none;
+    font-family: Font Awesome, Roboto, Arial, sans-serif;
+    font-size: 13px;
+    color: #ffffff;
+    border-radius: 30px;
+}
+
+#waybar {
+    background: rgba(0, 0, 0, 0);
+}
+
+/*-----module groups----*/
+.modules-right {
+	background: radial-gradient(circle,
+        rgba(137,180,250,1) 0%,   rgba(142,179,250,1) 6%,
+        rgba(148,226,213,1) 14%,  rgba(147,178,250,1) 14%,
+        rgba(155,176,249,1) 18%,  rgba(245,194,231,1) 28%,
+        rgba(158,175,249,1) 28%,  rgba(181,170,248,1) 58%,
+        rgba(205,214,244,1) 69%,  rgba(186,169,248,1) 69%,
+        rgba(195,167,247,1) 72%,  rgba(137,220,235,1) 73%,
+        rgba(198,167,247,1) 78%,  rgba(203,166,247,1) 100%);
+    background-size: 400% 400%;
+    animation: gradient_f 100s cubic-bezier(.72,.39,.21,1) infinite;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0,0,0,.377);
+    font-weight: bold;
+}
+
+.modules-center {
+	background: radial-gradient(circle,
+        rgba(137,180,250,1) 0%,   rgba(142,179,250,1) 6%,
+        rgba(148,226,213,1) 14%,  rgba(147,178,250,1) 14%,
+        rgba(155,176,249,1) 18%,  rgba(245,194,231,1) 28%,
+        rgba(158,175,249,1) 28%,  rgba(181,170,248,1) 58%,
+        rgba(205,214,244,1) 69%,  rgba(186,169,248,1) 69%,
+        rgba(195,167,247,1) 72%,  rgba(137,220,235,1) 73%,
+        rgba(198,167,247,1) 78%,  rgba(203,166,247,1) 100%);
+    background-size: 500% 500%;
+    animation: gradient_f 9s cubic-bezier(.72,.39,.21,1) infinite;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0,0,0,.377);
+    font-weight: bold;
+}
+
+.modules-left {
+	background: radial-gradient(circle,
+        rgba(137,180,250,1) 0%,   rgba(142,179,250,1) 6%,
+        rgba(148,226,213,1) 14%,  rgba(147,178,250,1) 14%,
+        rgba(155,176,249,1) 18%,  rgba(245,194,231,1) 28%,
+        rgba(158,175,249,1) 28%,  rgba(181,170,248,1) 58%,
+        rgba(205,214,244,1) 69%,  rgba(186,169,248,1) 69%,
+        rgba(195,167,247,1) 72%,  rgba(137,220,235,1) 73%,
+        rgba(198,167,247,1) 78%,  rgba(203,166,247,1) 100%);
+    background-size: 400% 400%;
+    animation: gradient_f 100s cubic-bezier(.72,.39,.21,1) infinite;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0,0,0,.377);
+    font-weight: bold;
+}
+
+/*-----modules indv----*/
+#workspaces button {
+    padding: 1px 5px;
+    background-color: transparent;
+}
+#workspaces button:hover {
+    box-shadow: inherit;
+	background-color: rgba(0,153,153,1);
+}
+
+#workspaces button.focused {
+	background-color: rgba(0,43,51,0.85);
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#bluetooth,
+#temperature,
+#network,
+#pulseaudio,
+#custom-media,
+#tray,
+#mode,
+#custom-power,
+#custom-menu,
+#custom-window
+#idle_inhibitor {
+    padding: 0 10px;
+}
+#mode {
+    color: #cc3436;
+    font-weight: bold;
+}
+#custom-power {
+    background-color: rgba(0,119,179,0.6);
+    border-radius: 100px;
+    margin: 5px 5px;
+    padding: 1px 1px 1px 6px;
+}
+/*-----Indicators----*/
+#idle_inhibitor.activated {
+    color: #2dcc36;
+}
+#pulseaudio.muted {
+    color: #cc3436;
+}
+#battery.charging {
+    color: #2dcc36;
+}
+#battery.warning:not(.charging) {
+	color: #e6e600;
+}
+#battery.critical:not(.charging) {
+    color: #cc3436;
+}
+#temperature.critical {
+    color: #cc3436;
+}
+
+.modules-left {
+    padding: 2px 18px 2px 8px;    
+}
+.modules-right {
+    padding: 2px 8px 2px 18px;      
+}
+
+.modules-center {
+    padding: 2px 18px;    
+}

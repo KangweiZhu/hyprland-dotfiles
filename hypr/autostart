@@ -1,0 +1,26 @@
+#!/usr/bin/bash
+
+config=$HOME/.config/hypr
+scripts=$config/scripts
+
+# prepare 
+mkdir -p $scripts/dynamic_pill
+dynamic_pill=$scripts/dynamic_pill
+
+# notification daemon
+touch $dynamic_pill/latest_notif.pkl
+dunst &
+
+# waybar
+$scripts/launch_waybar &
+
+# waybar - dynamic_pill(capture the 1.mpris2 info. 2. dunst notification)
+$dynamic_pill/capture &
+
+# wallpaper
+$scripts/wall $config/wallpapers/2.jpg &
+
+# other
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
+notify-send -a aurora "Welcome! $(whoami)" &

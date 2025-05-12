@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+waybar -c $HOME/.config/hypr/component/waybar/config -s $HOME/.config/hypr/component/waybar/style.css &
+
+# add WAYBAR_DEBUG=1 waybar if yu want to debug
+#WAYBAR_DEBUG=1 waybar -c $HOME/.config/hypr/component/waybar/config -s $HOME/.config/hypr/component/waybar/style.css
